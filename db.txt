@@ -1,0 +1,13 @@
+is_a_camel_a_movie? || no
+a_carnivore_is_also_a_doctor? || no
+is_a_baboon_a_sport? || no
+can_a_baboon_note_food? || no
+is_a_baboon_a_soup? || no
+does_a_bull_have_a_face? || yes
+can_a_calf_eat_food? || yes
+is_the_camel_a_mammal? || yes
+is_bull_an_action? || no
+does_a_camel_make_a_cake? || no
+is_a_bull_a_politician? || no
+is_a_baboon_actually_a_bird? || no
+is_a_buffalo_a_vertebrate? || yes

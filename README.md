@@ -1,1 +1,0 @@
-# Hcaptcha-bypasser

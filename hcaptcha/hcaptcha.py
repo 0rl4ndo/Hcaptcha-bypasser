@@ -148,7 +148,6 @@ class Hcaptcha:
                 pass
 
     def solve(_self):
-        _self.driver.get(f"http://127.0.0.1:9999")
         task = _self._Get_Task()
         _N = _self._HSW(task['req'])
         _CT = _self._Get_Captcha(_N, task)

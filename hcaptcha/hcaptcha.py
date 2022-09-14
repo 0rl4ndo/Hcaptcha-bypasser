@@ -38,9 +38,9 @@ class Hcaptcha:
 
     def _Get_v(_self):
         respone = httpx.get("https://hcaptcha.com/1/api.js").text
-        start = respone.find("https://newassets.hcaptcha.com/captcha/") + 42
-        end = respone[start:].find("/") + start
-        print(respone[start:end])
+        s = respone.find("https://newassets.hcaptcha.com/captcha/") + 42
+        f = respone[s:].find("/") + s
+        return respone[s:f]
         
     def _HSW(_self, req_id: str):
         hsw_code = httpx.get("https://newassets.hcaptcha.com/c/bed8f9f9/hsw.js").text

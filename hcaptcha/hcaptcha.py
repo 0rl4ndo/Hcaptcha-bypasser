@@ -34,14 +34,21 @@ class Hcaptcha:
         _self.chrome_opts = ChromeOptions()
         _self.chrome_opts.headless = True
         _self.driver = Chrome(options=_self.chrome_opts)
+        _self.v = _self._Get_v()
 
+    def _Get_v(_self):
+        respone = httpx.get("https://hcaptcha.com/1/api.js").text
+        s = respone.find("https://newassets.hcaptcha.com/captcha/") + 42
+        f = respone[s:].find("/") + s
+        return respone[s:f]
+        
     def _HSW(_self, req_id: str):
         hsw_code = httpx.get("https://newassets.hcaptcha.com/c/bed8f9f9/hsw.js").text
         return _self.driver.execute_script(f"{hsw_code}; return hsw('{req_id}')")
 
     def _Get_Task(_self):
         payload = {
-            'v': '1f7dc62',
+            'v': _self.v,
             'host': _self.website,
             'sitekey': _self.site_key,
             'sc': '1',
@@ -58,7 +65,7 @@ class Hcaptcha:
 
     def _Get_Captcha(_self, n: str, c: dict):
         payload = {
-            'v': '1f7dc62',
+            'v': _self.v,
             'sitekey': _self.site_key,
             'host': _self.website,
             'hl': 'en',
@@ -79,7 +86,7 @@ class Hcaptcha:
         n = _self._HSW(captcha_task['c']['req'])
         c = captcha_task['c']
         payload = {
-            'v': '1f7dc62',
+            'v': _self.v,
             'sitekey': _self.site_key,
             'host': _self.website,
             'hl': 'en',
@@ -126,7 +133,7 @@ class Hcaptcha:
 
         with httpx.Client(headers=_self.base_header, proxies=_self.proxy) as client:
             payload = {
-                'v': '1f7dc62',
+                'v': _self.v,
                 'job_mode': 'text_free_entry',
                 'answers': solved_task,
                 'serverdomain': _self.website,
@@ -148,10 +155,9 @@ class Hcaptcha:
                 pass
 
     def solve(_self):
-        _self.driver.get(f"http://127.0.0.1:9999")
         task = _self._Get_Task()
         _N = _self._HSW(task['req'])
         _CT = _self._Get_Captcha(_N, task)
         Text_Captcha = _self._Get_Text_Captcha(captcha_task=_CT)
-        _self.Solve_Task(Text_Captcha)
+        return _self.Solve_Task(Text_Captcha)
 

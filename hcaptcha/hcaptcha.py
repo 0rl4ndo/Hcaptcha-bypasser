@@ -110,7 +110,7 @@ class Hcaptcha:
 
     def _Slove_Text(_self, text: str):
         try: 
-            gg = db.split(f'{text} || ')[1].strip()
+            gg = db.split(f'{text} || ')[1].split()[0].strip()
             return {'text': gg}
         except:
             t = text.replace("_", " ")
